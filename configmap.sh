@@ -1,4 +1,5 @@
 #!/bin/bash
+### Apply configmap on the cloud
 
 while getopts ":d:n:b:" opt; do
   case $opt in

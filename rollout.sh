@@ -1,4 +1,5 @@
 #!/bin/bash
+## Rollout restart deployment on the cloud
 
 while getopts ":d:n:" opt; do
   case $opt in

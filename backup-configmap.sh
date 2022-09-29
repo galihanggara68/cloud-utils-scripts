@@ -1,4 +1,5 @@
 #!/bin/bash
+## Backup configmap from cloud
 
 while getopts ":d:n:" opt; do
   case $opt in
