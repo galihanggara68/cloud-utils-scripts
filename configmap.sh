@@ -43,6 +43,8 @@ do
         exit
       fi
 
+      echo "Found $filename, using $filename as config"
+
       kubectl create configmap $i-appsettings --from-file $k_namespace/$i-appsettings/$filename -o yaml -n $k_namespace --dry-run=client | kubectl apply -f -
       kubectl rollout restart deployment/$i -n $k_namespace
     else
