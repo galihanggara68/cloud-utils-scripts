@@ -38,7 +38,7 @@ do
       elif [ -f "$k_namespace/$i-appsettings/enviConfig.json" ]; then
         filename="enviConfig.json"
       else
-        $filename=""
+        filename=""
         echo "No configuration found"
         exit
       fi
