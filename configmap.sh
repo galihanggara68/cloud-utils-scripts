@@ -30,7 +30,20 @@ fi
 for i in "${array[@]}"
 do
     if [ -d "$k_namespace/$i-appsettings" ]; then
-      kubectl create configmap $i-appsettings --from-file $k_namespace/$i-appsettings/appsettings.json -o yaml -n $k_namespace --dry-run=client | kubectl apply -f -
+      filename="appsettings.json"
+      if [ -f "$k_namespace/$i-appsettings/$filename" ]; then
+        filename=$filename
+      elif [ -f "$k_namespace/$i-appsettings/appConfig.json" ]; then
+        filename="appConfig.json"
+      elif [ -f "$k_namespace/$i-appsettings/enviConfig.json" ]; then
+        filename="enviConfig.json"
+      else
+        $filename=""
+        echo "No configuration found"
+        exit
+      fi
+
+      kubectl create configmap $i-appsettings --from-file $k_namespace/$i-appsettings/$filename -o yaml -n $k_namespace --dry-run=client | kubectl apply -f -
       kubectl rollout restart deployment/$i -n $k_namespace
     else
       echo "Deployment folder not exists, make sure the folder and config are exists"
